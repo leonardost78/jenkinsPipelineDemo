@@ -11,6 +11,13 @@ node {
    stage('Build') {
       // Run the maven build
       sh './build.sh'
+		script {
+		  openshift.withCluster() {
+			openshift.withProject(env.DEV_PROJECT) {
+			  openshift.selector("bc", "springboot-demo-docker").startBuild("--wait=true")
+			}
+		  }
+		}	  
    }
    stage('Package') {
       // Run the maven build
