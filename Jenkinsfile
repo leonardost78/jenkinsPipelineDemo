@@ -13,7 +13,7 @@ node {
       sh './build.sh'
 		script {
 		  openshift.withCluster() {
-			openshift.withProject(env.DEV_PROJECT) {
+			openshift.withProject("myproject") {
 			  openshift.selector("bc", "springboot-demo-docker").startBuild("--wait=true")
 			}
 		  }
